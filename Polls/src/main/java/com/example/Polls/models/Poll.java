@@ -6,8 +6,8 @@ import java.util.Set;
 @Entity
 public class Poll {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "POLL_ID")
+    @Column(name = "POLL_ID")    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
 
     @Column (name = "QUESTION")

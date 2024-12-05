@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 @Entity
 public class Vote {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "VOTE_ID")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name="OPTION_ID")
-    private Options option;
+    private Options options;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class Vote {
         this.id = id;
     }
 
-    public Options getOption() {
-        return option;
+    public Options getOptions() {
+        return options;
     }
 
-    public void setOption(Options option) {
-        this.option = option;
+    public void setOptions(Options options) {
+        this.options = options;
     }
 }

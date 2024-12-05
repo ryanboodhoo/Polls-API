@@ -29,7 +29,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
     @RequestMapping(value="/polls/{pollId}/votes", method=RequestMethod.GET)
     public Iterable<Vote> getAllVotes(@PathVariable Long pollId) {
-        return voteRepository. findByPoll(pollId);
+        return voteRepository.findVotesByPoll(pollId);
     }
 
 
