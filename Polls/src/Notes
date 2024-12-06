@@ -1,0 +1,94 @@
+Take notes on the following topics below and add to your POLL API's README.md file
+What is a spring bean?
+What is Dependency injection?
+What is the IOC container?
+What is the Application context?
+What does  @SpringBootApplication do?
+What is the Dispatch Servlet?
+What is a Logger?
+
+
+## Spring Framework Concepts
+
+What is a Spring Bean?
+An **Spring Bean** is an object that is instantiated, assembled, and managed by a Spring IoC container.
+- This is the main part of the Spring application.
+It defines beans inside the configuration metadata. Configuration metadata can be provided with XML-based configurations or by using Java annotations with `@Configuration`, `@Component`, `@Service`, and `@Repository`.
+Beans are singletons by default. That means just one instance will be created per Spring container.
+
+---
+
+### What is Dependency Injection?
+**Dependency Injection (DI)** is the design technique used in place by Spring to implement **Inversion of Control (IoC)**.
+- Because it allows the framework to provide a class with its dependencies, rather than having the class create its own dependencies.
+It keeps things separated, and will be easier to test.
+- Herein, in Spring, there are conventionally three types of DI:
+1. Constructor Injection
+2. Setter Injection
+3. Field Injection-using @Autowired or other tags
+
+---
+
+What is an IoC Container?
+At the heart of the Spring Framework is its **Inversion of Control Container**.
+It describes how Spring Beans are instantiated and how these beans are dependent on each other.
+- Dependency injection is done by the container itself; it automatically connects the beans, based on their setup.
+People often use the IoC container for:
+- **BeanFactory**: A simple container that helps create beans.
+- **ApplicationContext**: A more feature-rich container used in modern Spring applications.
+
+---
+
+What is an Application Context?
+The **Application Context** is the central part of Spring, which offers high-level features for the IoC container.
+- This is a peculiar form of `BeanFactory` with some added functionalities, for instance:
+- Internationalization support i18n
+- Publishing application events
+Declarative bean configuration-using either annotations or Java classes
+Examples of type of `ApplicationContext`:
+- `ClassPathXmlApplicationContext`
+- `AnnotationConfigApplicationContext`
+- `WebApplicationContext` in web applications
+
+---
+
+### What does `@SpringBootApplication` mean?
+The `@SpringBootApplication` annotation is useful because it carries three very useful annotations:
+1. **`@Configuration`**: Indicates that a bean defining class makes available beans.
+2. **`@EnableAutoConfiguration`**: Enables auto-configuration of the application, taking into account the classpath dependencies.
+3. **`@ComponentScan`**: This tells Spring to scan for its components (`@Component`, `@Service`, `@Repository`, etc.) in the folder where the application is located plus its subfolders.
+
+This annotation makes the setting up with Spring Boot easier.
+
+None
+
+What is the Dispatcher Servlet?
+The **Dispatcher Servlet** is the controller in Spring MVC.
+Responsible for request processing, it receives incoming HTTP requests and dispatches them to handlers-appropriate controllers.
+- Workflow:
+1. Returns the HTTP request.
+2. Handler mappings are used to map this request to a specific controller.
+3. Executes the controller instructions.
+4. Searches for the view and passes the response back to the client.
+
+It will be automatically configured in Spring Boot applications.
+
+-
+
+### What is a Logger?
+A **Logger** is used for logging messages for debugging and monitoring of an application.
+SLF4J stands for Simple Logging Facade for Java, and Logback is the most common logging tools in spring applications.
+Advantages of the Use of a Logger:
+Track application behavior in production.
+- Records errors and exceptions for analytics.
+It helps in problem-solving and reviewing.
+- Example:
+The
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class ExampleClass {
+
+private static final Logger logger = LoggerFactory.getLogger(ExampleClass.class);
+
+public void run() { logger.info("Task execution begins. logger.debug("Detailed debug information"); logger.error("An error happened", new RuntimeException("Sample exception"); } END ``` _Let me know if you'd like additional details on any of these concepts!
