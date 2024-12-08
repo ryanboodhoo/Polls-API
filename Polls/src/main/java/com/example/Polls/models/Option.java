@@ -4,16 +4,17 @@ package com.example.Polls.models;
 import jakarta.persistence.*;
 
 @Entity
-public class Options {
+@Table(name = "Options")
+public class Option {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "OPTION_ID")
     private Long id;
 
     @Column(name = "Option_VALUE")
     private String value;
 
-    public Options() {
+    public Option() {
     }
 
     public long getId() {

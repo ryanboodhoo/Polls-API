@@ -28,11 +28,11 @@ public class ComputeResultController {
         for(Vote v : allVotes) {
             totalVotes ++;
             // Get the OptionCount corresponding to this Option
-            OptionCount optionCount = tempMap.get(v.getOptions().getId());
+            OptionCount optionCount = tempMap.get(v.getOption().getId());
             if(optionCount == null) {
                 optionCount = new OptionCount();
-                optionCount.setOptionId(v.getOptions().getId());
-                tempMap.put(v.getOptions().getId(), optionCount);
+                optionCount.setOptionId(v.getOption().getId());
+                tempMap.put(v.getOption().getId(), optionCount);
             }
             optionCount.setCount(optionCount.getCount()+1);
         }

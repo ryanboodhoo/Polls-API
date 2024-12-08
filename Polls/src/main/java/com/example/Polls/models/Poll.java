@@ -6,8 +6,8 @@ import java.util.Set;
 @Entity
 public class Poll {
     @Id
-    @Column(name = "POLL_ID")    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name = "POLL_ID")
+    @GeneratedValue
     private Long id;
 
     @Column (name = "QUESTION")
@@ -16,7 +16,10 @@ public class Poll {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "POLL_ID")
     @OrderBy
-    private Set<Options> options;
+    private Set<Option> options;
+
+    public Poll() {
+    }
 
     public Long getId() {
         return id;
@@ -34,11 +37,11 @@ public class Poll {
         this.question = question;
     }
 
-    public Set<Options> getOptions() {
+    public Set<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<Options> options) {
+    public void setOptions(Set<Option> options) {
         this.options = options;
     }
 }

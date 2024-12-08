@@ -5,4 +5,6 @@ import com.example.Polls.models.Poll;
 
 public interface PollRepository extends CrudRepository<Poll,Long> {
 
+
+
 }

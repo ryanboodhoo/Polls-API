@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 public class PollController {
@@ -44,6 +46,15 @@ public class PollController {
     @GetMapping(value="/polls/{pollId}")
     public ResponseEntity<?> getPoll(@PathVariable Long pollId) {
         Poll p = pollRepository.findById(pollId).orElse(null);
+        return new ResponseEntity<> (p, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/polls/{pollId}", method=RequestMethod.GET)
+    public ResponseEntity<?> getOnePoll(@PathVariable Long pollId) {
+        Optional<Poll> p = pollRepository.findById(pollId);
+        if(p == null) {
+            throw new NoSuchElementException("Poll with id " + pollId + " not found");
+        }
         return new ResponseEntity<> (p, HttpStatus.OK);
     }
 
