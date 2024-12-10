@@ -1,10 +1,15 @@
 package com.example.Polls.models;
 
-import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
-import javax.validation.constraints.Size;
+
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 import java.util.Set;
+
+
 
 @Entity
 public class Poll {
@@ -15,10 +20,10 @@ public class Poll {
 
 
     @Column(name="QUESTION")
-    @NotNull
+    @NotEmpty
     private String question;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade= CascadeType.ALL)
     @JoinColumn(name="POLL_ID")
     @OrderBy
     @Size(min=2, max = 6)

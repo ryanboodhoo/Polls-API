@@ -1,14 +1,20 @@
 package com.example.Polls.exception;
 
  import com.example.Polls.Error.ErrorDetail;
+ import com.example.Polls.Error.ValidationError;
  import jakarta.servlet.http.HttpServletRequest;
+ import org.springframework.beans.factory.annotation.Autowired;
+ import org.springframework.context.MessageSource;
  import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+ import org.springframework.validation.FieldError;
  import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+ import org.springframework.web.bind.annotation.ResponseBody;
+ import org.springframework.web.bind.annotation.ResponseStatus;
  import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -18,8 +24,10 @@ import java.util.List;
 
 
 
+
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<?> handleResourceNotFoundException(ResourceNotFoundException rnfe, HttpServletRequest request) {
@@ -33,7 +41,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(errorDetail, null, HttpStatus.NOT_FOUND);
     }
-     protected ResponseEntity<Object> handleHttpMessageNotReadable(
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
             HttpMessageNotReadableException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
 
@@ -46,7 +54,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return handleExceptionInternal(ex, errorDetail, headers, status, request);
     }
-
 
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException manve, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
@@ -64,4 +71,3 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
 
-/** handleResourceNotFoundException method removed **/

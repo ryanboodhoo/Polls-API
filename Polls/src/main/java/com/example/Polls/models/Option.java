@@ -3,6 +3,7 @@ package com.example.Polls.models;
 
 import jakarta.persistence.*;
 
+
 @Entity
 @Table(name = "Options")
 public class Option {

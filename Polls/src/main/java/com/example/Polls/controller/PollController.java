@@ -4,6 +4,7 @@ import com.example.Polls.PollsApplication;
 import com.example.Polls.exception.ResourceNotFoundException;
 import com.example.Polls.models.Poll;
 import com.example.Polls.repository.PollRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.NoSuchElementException;
 import java.util.Optional;
