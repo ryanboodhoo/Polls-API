@@ -4,16 +4,19 @@ import com.example.Polls.Dto.OptionCount;
 import com.example.Polls.Dto.VoteResult;
 import com.example.Polls.models.Vote;
 import com.example.Polls.repository.VoteRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 public class ComputeResultController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ComputeResultController.class);
 
     @Autowired
     private VoteRepository voteRepository;
@@ -38,8 +41,11 @@ public class ComputeResultController {
         }
         voteResult.setTotalVotes(totalVotes);
         voteResult.setResults(tempMap.values());
+        logger.info("Getting total votes of poll: {}",  pollId);
+
 
         return new ResponseEntity<VoteResult>(voteResult, HttpStatus.OK);
+
     }
 
 }
