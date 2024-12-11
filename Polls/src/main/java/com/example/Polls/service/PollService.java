@@ -1,10 +1,8 @@
 package com.example.Polls.service;
 
-import com.example.Polls.controller.PollController;
 import com.example.Polls.exception.ResourceNotFoundException;
 import com.example.Polls.models.Poll;
 import com.example.Polls.repository.PollRepository;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -70,14 +67,17 @@ public class PollService {
 
     }
 
-    public ResponseEntity<?> updatePoll( Poll poll, Long pollId) {
-        pollRepository.existsById(pollId);
+    public ResponseEntity<?> updatePoll(Poll poll, Long pollId) {
+        Poll pollByiD = pollRepository.findById(pollId).get();
+        pollByiD.setQuestion(poll.getQuestion());
+        pollByiD.setOptions(poll.getOptions());
         pollRepository.save(poll);
         logger.info("Updating poll with id: {}, new data: {}", pollId, poll);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<> (poll, HttpStatus.OK);
     }
 
     public ResponseEntity<?> deletePoll(Long pollId) {
+        pollRepository.findById(pollId).get();
         verifyPoll(pollId);
         pollRepository.deleteById(pollId);
         logger.info("Deleting poll with ID: {}",  pollId);
