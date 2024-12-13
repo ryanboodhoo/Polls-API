@@ -1,0 +1,49 @@
+@Complete Guide to Exception Handling in Spring Boot Notes
+1. Basic Error Handling
+- When an error occurs, the application can send back a message explaining what went wrong
+- You can control what information is included in the error message
+
+2. Main Ways to Handle Errors:
+- @ResponseStatus: Changes the error code (like 404 for "Not Found")
+- @ExceptionHandler: Creates custom error messages for specific problems
+- @ControllerAdvice: Handles errors across the entire application
+
+
+3. Benefits
+- More informative error messages
+- Better control over what users see
+- Consistent error handling across the application
+- Improved debugging and user experience
+
+
+@RequestParam Notes
+
+import org.springframework.web.bind.annotation.RequestParam;
+
+public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+		return new Greeting(counter.incrementAndGet(), String.format(template, name));
+	}
+}
+
+`@RequestParam` takes the value of the `name` parameter from the query string in the URL and assigns it to the `name` variable in the `greeting()` method.
+
+If the `name` parameter isn’t provided in the request, it uses the default value `"World"`.
+
+The method creates and returns a new `Greeting` object.
+
+It sets the `id` using the next value from the counter and formats the provided name using the greeting template for the content.
+
+The main difference between a traditional MVC controller and the restful web service controller's shown in the way that the HTTP body is made
+
+Instead of the view technology to perform side by side rendering of the getting to html
+
+The restful web service controller makes and returns back the greeting object
+
+the greeting must be converted to JSON
+
+But thanks to the spring HTTP message converter support
+
+the name of this converter is MappingJackson2HttpMessageConverter
+
+and it changes the Greeting object to JSON instantly without us having to do it manually
+

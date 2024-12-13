@@ -48,7 +48,7 @@ public class PollService {
     }
 
     protected void verifyPoll(Long pollId) throws ResourceNotFoundException {
-        pollRepository.existsById(pollId);
+    //    pollRepository.existsById(pollId);
 
         Poll poll = pollRepository.findById(pollId).orElse(null);
         if(poll == null) {
@@ -60,6 +60,7 @@ public class PollService {
 
 
     public ResponseEntity<?> getPoll( Long pollId) {
+        verifyPoll(pollId);
         pollRepository.findById(pollId);
         Poll p = pollRepository.findById(pollId).orElse(null);
         logger.info("Getting a poll by it's ID: {}",  pollId);

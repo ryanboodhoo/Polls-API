@@ -23,6 +23,8 @@ public class Poll {
     @JoinColumn(name="POLL_ID")
     @OrderBy
     @Size(min=2, max = 6)
+
+    @NotEmpty
     private Set<Option> options;
     // Getters and Setters removed for brevity
 
