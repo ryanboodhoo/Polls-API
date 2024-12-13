@@ -1,0 +1,102 @@
+How to retrieve all polls GET http://localhost:8080/polls
+
+How to delete a poll DELETE-http://localhost:8080/polls/{pollID}
+
+How to create a poll POST -http://localhost:8080/polls
+Then you must put things in the right format inside the body for example.
+
+
+{
+
+        "question": "What is your favorite fast food restaurant?",
+        "options": [
+            {
+
+                "value": "McDonalds"
+            },
+            {
+
+                "value": "Burger King"
+            },
+            {
+
+                "value": "Taco Bell"
+            }
+        ]
+    }
+
+
+
+
+
+How to retrieve existing  GET-http://localhost:8080/polls/{pollId}
+It should look like this
+{
+        "id": 103,
+        "question": "What is your favorite fast food restaurant?",
+        "options": [
+            {
+                "id": 52,
+                "value": "McDonalds"
+            },
+            {
+                "id": 53,
+                "value": "Burger King"
+            },
+            {
+                "id": 54,
+                "value": "Taco Bell"
+            }
+        ]
+    }
+
+
+
+How to update a poll  http://localhost:8080/polls/{pollid} PUT-
+Make changes to the body
+
+
+{
+
+        "question": "What is your favorite fast food restaurant?",
+        "options": [
+            {
+
+                               "id": 52, "value": "McDonalds"
+            },
+            {
+
+                                "id": 53, "value": "WENDY’S"
+            },
+            {
+
+                                "id": 54, "value": "Taco Bell"
+            }
+        ]
+    }
+
+
+How to create a vote POST http://localhost:8080/polls/{pollId}/votes
+
+Body for vote inside postman
+{
+"option": {"id": {pollId}, "value": "McDonalds"}
+}
+
+
+
+How to retrieve all votes for a poll GET  http://localhost:8080/computeresult?pollId={pollID}
+{
+    "total votes": 10,
+    "results": [
+        {
+            "optionId": 54,
+            "count": 10
+        }
+    ]
+}
+
+
+How to retrieve the vote count for a poll  GET http://localhost:8080/polls/{pollId}/votes
+
+
