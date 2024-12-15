@@ -26,14 +26,14 @@ public class Poll {
     @Size(min=2, max = 6)
 
     @NotEmpty
-    private Set<Option> options;
+    private Set<Options> options;
     // Getters and Setters removed for brevity
 
 
     public Poll() {
     }
 
-    public Poll(Long id, String question, Set<Option> options) {
+    public Poll(Long id, String question, Set<Options> options) {
         this.id = id;
         this.question = question;
         this.options = options;
@@ -55,11 +55,11 @@ public class Poll {
         this.question = question;
     }
 
-    public Set<Option> getOptions() {
+    public Set<Options> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<Option> options) {
+    public void setOptions(Set<Options> options) {
         this.options = options;
     }
 

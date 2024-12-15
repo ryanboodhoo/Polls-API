@@ -11,7 +11,7 @@ public class Vote {
 
     @ManyToOne
     @JoinColumn(name="OPTION_ID")
-    private Option option;
+    private Options option;
 
     public Vote() {
     }
@@ -24,11 +24,11 @@ public class Vote {
         this.id = id;
     }
 
-    public Option getOption() {
+    public Options getOption() {
         return option;
     }
 
-    public void setOption(Option option) {
+    public void setOption(Options option) {
         this.option = option;
     }
 }

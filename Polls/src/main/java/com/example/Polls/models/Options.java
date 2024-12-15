@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 
 
 @Entity
-@Table(name = "Options")
-public class Option {
+public class Options {
     @Id
     @GeneratedValue
     @Column(name = "OPTION_ID")
@@ -15,7 +14,7 @@ public class Option {
     @Column(name = "Option_VALUE")
     private String value;
 
-    public Option() {
+    public Options() {
     }
 
     public long getId() {

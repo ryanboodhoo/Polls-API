@@ -30,7 +30,7 @@ public class ComputeResultController {
         Map<Long, OptionCount> tempMap = new HashMap<Long, OptionCount>();
         for(Vote v : allVotes) {
             totalVotes ++;
-            // Get the OptionCount corresponding to this Option
+            // Get the OptionCount corresponding to this Options
             OptionCount optionCount = tempMap.get(v.getOption().getId());
             if(optionCount == null) {
                 optionCount = new OptionCount();

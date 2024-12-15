@@ -80,7 +80,7 @@ How to create a vote POST http://localhost:8080/polls/{pollId}/votes
 
 Body for vote inside postman
 {
-"option": {"id": {pollId}, "value": "McDonalds"}
+"options": {"id": {pollId}, "value": "McDonalds"}
 }
 
 
