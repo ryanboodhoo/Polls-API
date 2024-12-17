@@ -25,8 +25,6 @@ import org.slf4j.Logger;
                 vote) {
 
             vote = voteRepository.save(vote);
-
-
             // Set the headers for the newly created resource
             HttpHeaders responseHeaders = new HttpHeaders();
             responseHeaders.setLocation(ServletUriComponentsBuilder.
