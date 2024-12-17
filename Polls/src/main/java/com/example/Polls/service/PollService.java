@@ -17,72 +17,76 @@ import java.net.URI;
 @Service
 public class PollService {
 
+    private final Logger logger = LoggerFactory.getLogger(PollService.class);
+
     @Autowired
     PollRepository pollRepository;
 
-    private static final Logger logger = LoggerFactory.getLogger(PollService.class);
 
+    public ResponseEntity<?> allPolls(){
 
-
-    public ResponseEntity<Iterable<Poll>> getAllPolls() {
-        Iterable<Poll> allPolls = pollRepository.findAll();
-
-        return new ResponseEntity<>(allPolls, HttpStatus.OK);
+        return new ResponseEntity<>(pollRepository.findAll(), HttpStatus.OK);
     }
 
-    public ResponseEntity<?> createPoll(Poll poll) {
+    public ResponseEntity<?> changePoll(Poll poll, Long id){
+        verifyPoll(id);
 
-        poll = pollRepository.save(poll);
+        if (pollRepository.findById(id).isPresent()){
+            Poll newPoll = pollRepository.findById(id).get();
+            newPoll.setOptions(poll.getOptions());
+            newPoll.setQuestion(poll.getQuestion());
+            return new ResponseEntity<>(pollRepository.save(newPoll), HttpStatus.ACCEPTED);
+        }
 
-        // Set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newPollUri = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}").buildAndExpand(poll.getId()).toUri();
-        responseHeaders.setLocation(newPollUri);
+        return null;
 
-        logger.info("Creating Poll: {}", poll);
-
-
-        return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    protected void verifyPoll(Long pollId) throws ResourceNotFoundException {
-    //    pollRepository.existsById(pollId);
+    public ResponseEntity<?> addAPoll(Poll poll){
+        HttpHeaders headers = new HttpHeaders();
+        URI newPollUri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(poll.getId()).toUri();
+        headers.setLocation(newPollUri);
+        return new ResponseEntity<>(pollRepository.save(poll), headers, HttpStatus.CREATED);
+    }
 
-        Poll poll = pollRepository.findById(pollId).orElse(null);
-        if(poll == null) {
+
+    public ResponseEntity<?> getPollById(Long id){
+        verifyPoll(id);
+
+        Poll myPoll = null;
+        if (pollRepository.findById(id).isPresent()) {
+            Poll p = pollRepository.findById(id).get();
+            myPoll = p;
+        }
+        if (myPoll == null) {
+            throw new ResourceNotFoundException("Poll with id " + id + " not found");
+
+        }
+
+        return new ResponseEntity<>(myPoll, HttpStatus.FOUND);
+    }
+
+    public ResponseEntity<?> removePoll(Long id){
+        verifyPoll(id);
+        pollRepository.deleteById(id);
+
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+
+
+    protected void verifyPoll(Long pollId) throws  ResourceNotFoundException{
+        Poll myPoll = null;
+
+        if (pollRepository.findById(pollId).isPresent()){
+            Poll poll = pollRepository.findById(pollId).get();
+            myPoll = poll;
+            logger.info("poll verified");
+        }
+
+        if (myPoll == null){
             throw new ResourceNotFoundException("Poll with id " + pollId + " not found");
         }
-        logger.info("Verifying if poll exist with ID: {}", pollId);
 
-    }
-
-
-    public ResponseEntity<?> getPoll( Long pollId) {
-        verifyPoll(pollId);
-        pollRepository.findById(pollId);
-        Poll p = pollRepository.findById(pollId).orElse(null);
-        logger.info("Getting a poll by it's ID: {}",  pollId);
-        return new ResponseEntity<> (p, HttpStatus.OK);
-
-    }
-
-    public ResponseEntity<?> updatePoll(Poll poll, Long pollId) {
-        Poll pollByiD = pollRepository.findById(pollId).get();
-        pollByiD.setQuestion(poll.getQuestion());
-        pollByiD.setOptions(poll.getOptions());
-        pollRepository.save(poll);
-        logger.info("Updating poll with id: {}, new data: {}", pollId, poll);
-        return new ResponseEntity<> (poll, HttpStatus.OK);
-    }
-
-    public ResponseEntity<?> deletePoll(Long pollId) {
-        pollRepository.findById(pollId).get();
-        verifyPoll(pollId);
-        pollRepository.deleteById(pollId);
-        logger.info("Deleting poll with ID: {}",  pollId);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
