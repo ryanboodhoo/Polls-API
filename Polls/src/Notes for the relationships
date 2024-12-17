@@ -1,0 +1,81 @@
+Problems with Bidirectional One-to-Many Mapping:
+
+Tight Coupling: The many-side is tightly coupled to the one-side, reducing flexibility.
+Pagination Issues: Loading child entities (e.g., comments) via the parent entity (e.g., post) prevents limiting or paginating results.
+Sorting Limitations: Sorting children dynamically is difficult; @OrderColumn can cause performance issues.
+LazyInitializationException: Accessing lazily loaded child entities outside the session can lead to errors.
+When to Use Bidirectional One-to-Many Mapping:
+
+Suitable when the number of child entities is limited.
+Best for tightly coupled relationships where loading child entities alongside the parent is necessary.
+Example: Survey App
+Question and Options exhibit a one-to-many relationship.
+A question has a fixed, small number of options (e.g., 4-5), making bidirectional mapping ideal.
+Decision Making:
+Choose between bidirectional and unidirectional mappings based on whether the entities are tightly coupled.
+
+Conclusion:
+
+Bidirectional mappings work well for tightly coupled entities with a limited number of children.
+For additional learning, explore other JPA/Hibernate mappings like One-to-One and Many-to-Many with Spring Boot.
+Sample code is available here https://github.com/callicoder/jpa-hibernate-tutorials
+
+
+Testing Many-to-Many Relationship with Hibernate and Spring Boot
+Code Implementation
+
+In JpaManyToManyDemoApplication.java, the run() method tests the many-to-many association between Post and Tag:
+Cleans up existing data with deleteAllInBatch() for PostRepository and TagRepository.
+Creates a Post and two Tags.
+Associates the Post with the Tags (both directions).
+Saves the Post, which cascades the save operation to the Tags.
+java
+Copy code
+post.getTags().add(tag1);
+post.getTags().add(tag2);
+tag1.getPosts().add(post);
+tag2.getPosts().add(post);
+
+postRepository.save(post);
+Running the Application
+Run the application using:
+
+bash
+Copy code
+mvn spring-boot:run
+Hibernate Logs
+Observe Hibernate-generated SQL statements in the console:
+
+Cleanup operations: DELETE queries for tables post_tags, posts, and tags.
+Insert operations: INSERT queries for posts, tags, and the join table post_tags.
+Conclusion
+
+Successfully mapped a many-to-many relationship using JPA and Hibernate.
+Code and tutorials are available in the author's GitHub repository.
+Further Reading:
+
+One-to-One Mapping
+One-to-Many Mapping with Spring Boot
+
+Understanding JPA's @OneToOne Relationship
+The @OneToOne annotation defines a one-to-one relationship in JPA. Key attributes include:
+
+fetch = FetchType.LAZY:
+
+Loads the related entity lazily to optimize performance.
+The related entity is fetched only when accessed.
+cascade = CascadeType.ALL:
+
+Applies all cascading operations (e.g., persist, merge, delete) to the related entity.
+Example: Updating or deleting a User entity will update or delete the associated UserProfile.
+mappedBy = "user":
+
+Used on the inverse side of a bidirectional relationship.
+Tells Hibernate that this entity does not own the relationship. Instead, it should reference the user field in the related entity (e.g., UserProfile).
+Bidirectional One-to-One Relationship
+Owner of the Relationship: Contains the @JoinColumn annotation to specify the foreign key column.
+Inverse Side: Contains the mappedBy attribute to indicate the relationship is managed by the other entity.
+Example Setup:
+
+Parent Entity (User): Uses mappedBy on the @OneToOne annotation.
+Child Entity (UserProfile): Specifies @JoinColumn to define the foreign key
